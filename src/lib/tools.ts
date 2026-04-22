@@ -90,7 +90,7 @@ export function executeTool(name: string, input: any): any {
     case "correlate_events": {
       const ids = input.event_ids as string[];
       const events = SITE_EVENTS.filter((e) => ids.includes(e.id));
-      const zones = [...new Set(events.map((e) => e.zone))];
+      const zones = Array.from(new Set(events.map((e) => e.zone)));
       const times = events.map((e) => new Date(e.timestamp).getTime());
       const timeSpanMinutes = times.length > 1 ? Math.round((Math.max(...times) - Math.min(...times)) / 60000) : 0;
       const blockCEvents = events.filter((e) => e.zone.includes("Block C") || e.zone.includes("Gate 3"));
